@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { getActiveTasks } from './actions';
 import WorkLogPanel from '@/components/WorkLogPanel';
 
@@ -9,14 +9,6 @@ export default async function TrackingPage() {
 
   return (
     <Box>
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h3" color="text.primary" gutterBottom>
-          Daily Work Tracking
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary">
-          Log actual daily hours for assigned workers on active tasks.
-        </Typography>
-      </Box>
       <WorkLogPanel activeTasks={tasks} />
     </Box>
   );

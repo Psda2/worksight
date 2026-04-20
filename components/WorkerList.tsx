@@ -60,7 +60,20 @@ export default function WorkerList({ initialWorkers }: { initialWorkers: any[] }
           columns={columns} 
           getRowId={(row) => row._id}
           disableRowSelectionOnClick
-          sx={{ border: 0, '& .MuiDataGrid-cell': { px: 2 } }}
+          sx={{ 
+            border: 0, 
+            '& .MuiDataGrid-cell': { px: 2 },
+            '& .MuiDataGrid-columnHeaders': {
+              bgcolor: '#F8F7FF',
+              color: '#1E1B4B',
+              fontWeight: 700,
+              borderBottom: '1px solid #EEF0F8',
+            },
+            '& .MuiDataGrid-columnHeaderTitle': {
+              fontWeight: 700,
+              fontSize: '0.85rem',
+            }
+          }}
         />
       </Box>
 

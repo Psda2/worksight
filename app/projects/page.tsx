@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { getProjects } from './actions';
 import { getWorkers } from '@/app/workers/actions';
 import ProjectList from '@/components/ProjectList';
@@ -11,14 +11,6 @@ export default async function ProjectsPage() {
 
   return (
     <Box>
-      <Box sx={{ mb: 4 }}>
-        <Typography variant="h3" color="text.primary" gutterBottom>
-          Projects & Tasks
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary">
-          Define projects, break down assignments, and allocate your labor force.
-        </Typography>
-      </Box>
       <ProjectList initialProjects={projects} workers={workers} />
     </Box>
   );

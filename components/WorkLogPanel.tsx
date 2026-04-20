@@ -1,7 +1,7 @@
 'use client';
 import * as React from 'react';
 import { Box, Typography, Button, TextField, Stack, Card, CardContent, Divider, Snackbar, Alert } from '@mui/material';
-import { logWork } from '@/app/tracking/actions';
+import { logWork, completeTask } from '@/app/tracking/actions';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function WorkLogPanel({ activeTasks }: { activeTasks: any[] }) {
@@ -54,10 +54,26 @@ export default function WorkLogPanel({ activeTasks }: { activeTasks: any[] }) {
       {activeTasks.length === 0 ? <Typography>No active tasks available to log hours.</Typography> : (
         <Stack spacing={3}>
           {activeTasks.map(task => (
-            <Card key={task._id} sx={{ borderRadius: 3, boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.05)', border: '1px solid #E2E8F0' }}>
+            <Card key={task._id} sx={{ borderRadius: 1, boxShadow: 'none', border: '1px solid #E2E8F0' }}>
               <CardContent>
-                <Typography variant="h6" gutterBottom color="primary.dark">{task.name}</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                  <Typography variant="h6" color="text.primary" sx={{ fontWeight: 600 }}>{task.name}</Typography>
+                  <Button 
+                    size="small" 
+                    variant="outlined" 
+                    color="success" 
+                    onClick={async () => {
+                      if(confirm("Are you sure this task is completely finished?")) {
+                         await completeTask(task._id);
+                         window.location.reload();
+                      }
+                    }}
+                    sx={{ borderRadius: '4px', textTransform: 'none', fontWeight: 600 }}
+                  >
+                    Mark as Completed
+                  </Button>
+                </Box>
+                <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 3 }}>
                   Planned Target: {task.requiredHours} Hours
                 </Typography>
 

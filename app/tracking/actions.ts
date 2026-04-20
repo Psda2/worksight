@@ -3,6 +3,7 @@
 import connectToDatabase from '@/lib/mongodb';
 import TaskItem from '@/models/TaskItem';
 import WorkLog from '@/models/WorkLog';
+import '@/models/Worker'; // Must be imported so Mongoose registers the schema before .populate() runs
 import { revalidatePath } from 'next/cache';
 
 export async function getActiveTasks() {
@@ -24,5 +25,14 @@ export async function logWork(data: { taskId: string; logs: { workerId: string; 
 
   await WorkLog.insertMany(workLogs);
   revalidatePath('/tracking');
+  return { success: true };
+}
+
+export async function completeTask(taskId: string) {
+  await connectToDatabase();
+  await TaskItem.findByIdAndUpdate(taskId, { status: 'Done' });
+  revalidatePath('/tracking');
+  revalidatePath('/projects');
+  revalidatePath('/');
   return { success: true };
 }
